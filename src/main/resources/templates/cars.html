@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Cars</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border: 1px solid #2e2b2b;
+        }
+
+        th {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<h1>Cars List</h1>
+<table id="carsTable">
+    <thead>
+    <tr>
+        <th onclick="sortTable(0)">Model</th>
+        <th onclick="sortTable(1)">Year</th>
+        <th onclick="sortTable(2)">Series</th>
+        <th onclick="sortTable(3)">Value</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="car : ${cars}">
+        <td th:text="${car.model}"></td>
+        <td th:text="${car.year}"></td>
+        <td th:text="${car.series}"></td>
+        <td th:text="${car.value}"></td>
+    </tr>
+    </tbody>
+</table>
+
+<script>
+    let sortDirection = {};
+
+    function sortTable(columnIndex) {
+        const table = document.getElementById("carsTable");
+        const rows = Array.from(table.rows).slice(1);
+        const currentDirection = sortDirection[columnIndex] || 'asc';
+        const newDirection = currentDirection === 'asc' ? 'desc' : 'asc';
+        // debugger;
+        rows.sort((a, b) => {
+            let x = a.cells[columnIndex].textContent.trim().toLowerCase();
+            let y = b.cells[columnIndex].textContent.trim().toLowerCase();
+
+            x = isNaN(x) ? x : parseFloat(x);
+            y = isNaN(y) ? y : parseFloat(y);
+
+            if (x < y) return newDirection === "asc" ? -1 : 1;
+            if (x > y) return newDirection === "asc" ? 1 : -1;
+            return 0;
+        });
+
+        rows.forEach(row => table.appendChild(row)); // Присоединяем отсортированные строки обратно к таблице
+
+        sortDirection[columnIndex] = newDirection; // Сохраняем текущее направление сортировки для этого столбца
+    }
+</script>
+
+</body>
+</html>

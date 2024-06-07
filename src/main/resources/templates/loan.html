@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Loan Approval</title>
+</head>
+<body>
+<h1>Loan Approval</h1>
+<form action="#" th:action="@{/loan}" th:object="${userLoan}" method="get">
+    <label for="userId">User ID:</label>
+    <input type="number" id="userId" name="userId" th:field="*{userId}"/>
+    <button type="submit">Get Loan Amount</button>
+</form>
+
+<div th:if="${loanAmount != null}">
+    <p>User ID: <span th:text="${userLoan.userId}"></span></p>
+    <p>Approved Loan Amount: <span th:text="${loanAmount}"></span></p>
+</div>
+</body>
+</html>

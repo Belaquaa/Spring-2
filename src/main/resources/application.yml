@@ -1,0 +1,9 @@
+car:
+  maxDisplayed: 3
+  nonSortableFields:
+    - id
+
+loan:
+  minimalIncome: 40000
+  maxAnnualLoanRatio: 0.5
+  maxCarLoanRatio: 0.3
