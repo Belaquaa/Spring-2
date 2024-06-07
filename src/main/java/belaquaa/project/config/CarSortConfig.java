@@ -7,11 +7,10 @@ import org.springframework.context.annotation.Configuration;
 
 import java.util.List;
 
-
 @Setter
 @Getter
 @Configuration
-@ConfigurationProperties(prefix = "car")
-public class CarConfig {
+@ConfigurationProperties(prefix = "car-sort")
+public class CarSortConfig {
     private List<String> nonSortableFields;
 }

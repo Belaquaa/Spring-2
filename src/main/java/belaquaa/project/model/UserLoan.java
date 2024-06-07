@@ -8,12 +8,13 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
+import lombok.RequiredArgsConstructor;
 
 @Entity
 @Table(name = "user_loans")
 @Data
-@NoArgsConstructor
+@NoArgsConstructor(force = true)
+@RequiredArgsConstructor
 public class UserLoan {
 
     @Id
@@ -21,12 +22,8 @@ public class UserLoan {
     private Long id;
 
     @Column(name = "user_id", nullable = false, unique = true)
-    private Long userId;
+    private final Long userId;
 
     @Column(name = "income", nullable = false)
     private double income;
-
-    public UserLoan(Long userId) {
-        this.userId = userId;
-    }
 }

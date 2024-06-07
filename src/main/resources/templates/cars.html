@@ -48,7 +48,6 @@
         const rows = Array.from(table.rows).slice(1);
         const currentDirection = sortDirection[columnIndex] || 'asc';
         const newDirection = currentDirection === 'asc' ? 'desc' : 'asc';
-        // debugger;
         rows.sort((a, b) => {
             let x = a.cells[columnIndex].textContent.trim().toLowerCase();
             let y = b.cells[columnIndex].textContent.trim().toLowerCase();
@@ -61,9 +60,9 @@
             return 0;
         });
 
-        rows.forEach(row => table.appendChild(row)); // Присоединяем отсортированные строки обратно к таблице
+        rows.forEach(row => table.appendChild(row));
 
-        sortDirection[columnIndex] = newDirection; // Сохраняем текущее направление сортировки для этого столбца
+        sortDirection[columnIndex] = newDirection;
     }
 </script>
 

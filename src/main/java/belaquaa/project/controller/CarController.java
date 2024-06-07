@@ -1,9 +1,9 @@
 package belaquaa.project.controller;
 
-import belaquaa.project.config.CarConfig;
+import belaquaa.project.config.CarSortConfig;
 import belaquaa.project.model.Car;
 import belaquaa.project.service.car.CarService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,13 +16,11 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Controller
+@RequiredArgsConstructor
 public class CarController {
 
-    @Autowired
-    private CarService carService;
-
-    @Autowired
-    private CarConfig carConfig;
+    private final CarService carService;
+    private final CarSortConfig carSortConfig;
 
     @Value("${car.maxDisplayed}")
     private int maxCar;
@@ -34,7 +32,7 @@ public class CarController {
         List<Car> cars = carService.listCars();
 
         if (sortBy != null) {
-            if (carConfig.getNonSortableFields().contains(sortBy)) return "redirect:/error";
+            if (carSortConfig.getNonSortableFields().contains(sortBy)) return "redirect:/error";
             cars = sortCars(cars, sortBy);
         }
 
@@ -53,7 +51,6 @@ public class CarController {
             case "value" -> Comparator.comparing(Car::getValue);
             default -> null;
         };
-
         return comparator != null ? cars.stream().sorted(comparator).collect(Collectors.toList()) : cars;
     }
 }

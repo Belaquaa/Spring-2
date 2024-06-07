@@ -9,12 +9,13 @@ import jakarta.persistence.GenerationType;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
+import lombok.RequiredArgsConstructor;
 
 @Entity
 @Table(name = "cars")
 @Data
-@NoArgsConstructor
+@NoArgsConstructor(force = true)
+@RequiredArgsConstructor
 public class Car {
 
     @Id
@@ -22,21 +23,15 @@ public class Car {
     private Long id;
 
     @Column(name = "model", nullable = false)
-    private String model;
+    private final String model;
 
     @Column(name = "yr", nullable = false)
-    private int year;
+    private final int year;
 
     @Column(name = "series", nullable = false, unique = true)
-    private int series;
+    private final int series;
 
     @Column(name = "value", nullable = false)
-    private double value;
+    private final double value;
 
-    public Car(String model, int year, int series, double value) {
-        this.model = model;
-        this.series = series;
-        this.year = year;
-        this.value = value;
-    }
 }

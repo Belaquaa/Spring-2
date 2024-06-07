@@ -2,18 +2,17 @@ package belaquaa.project.controller;
 
 import belaquaa.project.model.UserLoan;
 import belaquaa.project.service.loan.LoanService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
+@RequiredArgsConstructor
 public class LoanController {
 
-    @Autowired
-    private LoanService loanService;
-
+    private final LoanService loanService;
 
     @GetMapping("/loan")
     public String getLoanAmount(@RequestParam Long userId, Model model) {
@@ -21,12 +20,8 @@ public class LoanController {
         if (userId == null || userId < 0) return "redirect:/error";
 
         double loanAmount = loanService.getApprovedLoanAmount(userId);
-        UserLoan userLoan = loanService.getUserLoanByUserId(userId);
 
-        if (userLoan == null) {
-            userLoan = new UserLoan(userId);
-        }
-        model.addAttribute("userLoan", userLoan);
+        model.addAttribute("userLoan", new UserLoan(userId));
         model.addAttribute("loanAmount", loanAmount);
         return "loan";
     }

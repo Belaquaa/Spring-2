@@ -1,7 +1,7 @@
 package belaquaa.project.service.user;
 
 import belaquaa.project.model.User;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -9,10 +9,10 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class UserService {
 
-    @Autowired
-    private UserRepository userDao;
+    private final UserRepository userDao;
 
     @Transactional
     public void addUser(User user) {

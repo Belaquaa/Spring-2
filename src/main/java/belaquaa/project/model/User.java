@@ -12,40 +12,29 @@ import jakarta.persistence.Id;
 import jakarta.persistence.GenerationType;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 @Entity()
 @Table(name = "users")
 @Data
-@NoArgsConstructor
-
+@NoArgsConstructor(force = true)
+@RequiredArgsConstructor
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "name", nullable = false)
-    private String firstName;
+    private final String firstName;
 
     @Column(name = "last_name", nullable = false)
-    private String lastName;
+    private final String lastName;
 
     @Column(name = "email", nullable = false, unique = true)
-    private String email;
+    private final String email;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "car_id")
-    private Car car;
+    private final Car car;
 
-    public User(String firstName, String lastName, String email) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-    }
-
-    public User(String firstName, String lastName, String email, Car car) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.car = car;
-    }
 }

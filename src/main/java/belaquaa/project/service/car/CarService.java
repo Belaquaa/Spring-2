@@ -1,7 +1,7 @@
 package belaquaa.project.service.car;
 
 import belaquaa.project.model.Car;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -10,10 +10,10 @@ import java.util.Optional;
 
 
 @Service
+@RequiredArgsConstructor
 public class CarService {
 
-    @Autowired
-    private CarRepository carRepository;
+    private final CarRepository carRepository;
 
     @Transactional
     public void addCar(Car car) {
